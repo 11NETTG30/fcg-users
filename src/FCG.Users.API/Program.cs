@@ -1,5 +1,5 @@
 using FCG.Users.API.Configurations;
-using FCG.Users.API.Middlewares;
+using FCG.Shared.Infrastructure.Middlewares;
 using FCG.Users.Infrastructure.Configurations;
 using FCG.Users.Infrastructure.Identidade.Configurations;
 using FCG.Users.IoC;

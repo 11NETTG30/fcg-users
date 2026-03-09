@@ -1,4 +1,4 @@
-using FCG.Users.Domain.Shared.UoW;
+using FCG.Shared.Domain.UoW;
 
 namespace FCG.Users.BDDTests.Support
 {

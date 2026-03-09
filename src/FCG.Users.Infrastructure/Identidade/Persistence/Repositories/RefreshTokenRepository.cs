@@ -1,6 +1,6 @@
 using FCG.Users.Domain.Identidade.Entities;
 using FCG.Users.Domain.Identidade.Repositories;
-using FCG.Users.Domain.Shared.UoW;
+using FCG.Shared.Domain.UoW;
 using Microsoft.EntityFrameworkCore;
 
 namespace FCG.Users.Infrastructure.Identidade.Persistence.Repositories;

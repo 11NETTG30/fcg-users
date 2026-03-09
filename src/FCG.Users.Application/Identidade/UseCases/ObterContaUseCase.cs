@@ -1,5 +1,5 @@
 using FCG.Users.Application.Identidade.DTOs;
-using FCG.Users.Application.Shared;
+using FCG.Shared.Application;
 using FCG.Users.Domain.Identidade.Entities;
 using FCG.Users.Domain.Identidade.Repositories;
 

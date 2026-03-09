@@ -1,7 +1,7 @@
 using FCG.Users.Domain.Identidade.Entities;
 using FCG.Users.Domain.Identidade.Enums;
 using FCG.Users.Domain.Identidade.Repositories;
-using FCG.Users.Domain.Shared.Exceptions;
+using FCG.Shared.Domain.Exceptions;
 
 namespace FCG.Users.Application.Identidade.UseCases;
 

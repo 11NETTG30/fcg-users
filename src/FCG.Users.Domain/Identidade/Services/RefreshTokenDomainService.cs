@@ -1,7 +1,7 @@
 using FCG.Users.Domain.Identidade.Entities;
 using FCG.Users.Domain.Identidade.Enums;
 using FCG.Users.Domain.Identidade.Repositories;
-using FCG.Users.Domain.Shared.Abstractions;
+using FCG.Shared.Domain.Abstractions;
 
 namespace FCG.Users.Domain.Identidade.Services;
 

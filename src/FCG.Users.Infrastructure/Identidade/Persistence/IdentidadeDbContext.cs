@@ -1,6 +1,6 @@
 using FCG.Users.Domain.Identidade.Entities;
 using FCG.Users.Infrastructure.Identidade.Persistence.Configurations;
-using FCG.Users.Infrastructure.Shared.Persistence.UoW;
+using FCG.Shared.Infrastructure.Persistence.UoW;
 using Microsoft.EntityFrameworkCore;
 
 namespace FCG.Users.Infrastructure.Identidade.Persistence;

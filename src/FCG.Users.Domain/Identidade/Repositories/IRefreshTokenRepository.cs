@@ -1,5 +1,5 @@
 using FCG.Users.Domain.Identidade.Entities;
-using FCG.Users.Domain.Shared.Abstractions;
+using FCG.Shared.Domain.Abstractions;
 
 namespace FCG.Users.Domain.Identidade.Repositories;
 

@@ -1,5 +1,5 @@
-using FCG.Users.Domain.Shared.Abstractions;
-using FCG.Users.Domain.Shared.Exceptions;
+using FCG.Shared.Domain.Abstractions;
+using FCG.Shared.Domain.Exceptions;
 
 namespace FCG.Users.Domain.Identidade.ValueObjects;
 

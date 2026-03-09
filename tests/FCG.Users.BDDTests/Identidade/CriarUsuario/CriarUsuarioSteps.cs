@@ -5,7 +5,7 @@ using FCG.Users.Domain.Identidade.Entities;
 using FCG.Users.Domain.Identidade.Repositories;
 using FCG.Users.Domain.Identidade.Security;
 using FCG.Users.Domain.Identidade.ValueObjects;
-using FCG.Users.Domain.Shared.Exceptions;
+using FCG.Shared.Domain.Exceptions;
 using Moq;
 
 namespace FCG.Users.BDDTests.Identidade.CriarUsuario;

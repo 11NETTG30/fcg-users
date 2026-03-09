@@ -7,6 +7,7 @@
     <ItemGroup>
         <ProjectReference Include="..\FCG.Users.Application\FCG.Users.Application.csproj" />
         <ProjectReference Include="..\FCG.Users.Domain\FCG.Users.Domain.csproj" />
+        <PackageReference Include="FCG.Shared.Infrastructure" Version="1.0.0" />
     </ItemGroup>
     <ItemGroup>
         <PackageReference Include="Konscious.Security.Cryptography.Argon2" Version="1.3.1" />

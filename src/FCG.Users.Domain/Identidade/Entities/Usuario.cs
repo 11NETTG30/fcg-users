@@ -1,7 +1,7 @@
 using FCG.Users.Domain.Identidade.Enums;
 using FCG.Users.Domain.Identidade.ValueObjects;
-using FCG.Users.Domain.Shared.Abstractions;
-using FCG.Users.Domain.Shared.Exceptions;
+using FCG.Shared.Domain.Abstractions;
+using FCG.Shared.Domain.Exceptions;
 
 namespace FCG.Users.Domain.Identidade.Entities;
 
