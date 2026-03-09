@@ -1,4 +1,4 @@
-using FCG.Users.Domain.Identidade.Services;
+using FCG.Users.Domain.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace FCG.Users.IoC;

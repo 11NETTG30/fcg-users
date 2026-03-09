@@ -1,6 +1,6 @@
-using FCG.Users.Application.Identidade.DTOs;
-using FCG.Users.Application.Identidade.UseCases;
-using FCG.Users.Infrastructure.Identidade.Security;
+using FCG.Users.Application.DTOs;
+using FCG.Users.Application.UseCases;
+using FCG.Users.Infrastructure.Security;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

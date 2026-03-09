@@ -1,7 +1,0 @@
-namespace FCG.Users.Application.Identidade.DTOs;
-
-public record AlterarSenhaRequest(
-    string SenhaAtual,
-    string NovaSenha,
-    string ConfirmacaoNovaSenha
-);

@@ -1,4 +1,4 @@
-using FCG.Users.Infrastructure.Identidade.Persistence;
+using FCG.Users.Infrastructure.Persistence;
 using FCG.Shared.Infrastructure.Persistence.Interceptors;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;

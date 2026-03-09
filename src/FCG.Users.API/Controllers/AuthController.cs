@@ -1,5 +1,5 @@
-using FCG.Users.Application.Identidade.DTOs;
-using FCG.Users.Application.Identidade.UseCases;
+using FCG.Users.Application.DTOs;
+using FCG.Users.Application.UseCases;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FCG.Users.API.Controllers;

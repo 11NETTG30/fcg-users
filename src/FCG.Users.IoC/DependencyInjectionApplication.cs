@@ -1,6 +1,6 @@
 using System.Globalization;
-using FCG.Users.Application.Identidade.UseCases;
-using FCG.Users.Application.Identidade.Validators;
+using FCG.Users.Application.UseCases;
+using FCG.Users.Application.Validators;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using FluentValidation.Resources;

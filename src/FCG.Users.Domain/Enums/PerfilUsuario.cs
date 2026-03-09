@@ -1,0 +1,7 @@
+namespace FCG.Users.Domain.Enums;
+
+public enum PerfilUsuario : byte
+{
+    Usuario = 1,
+    Administrador = 2
+}

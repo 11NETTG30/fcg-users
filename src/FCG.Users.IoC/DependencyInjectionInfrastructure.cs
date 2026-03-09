@@ -1,11 +1,11 @@
-using FCG.Users.Application.Identidade.Security;
+using FCG.Users.Application.Security;
 using FCG.Shared.Application;
-using FCG.Users.Domain.Identidade.Repositories;
-using FCG.Users.Domain.Identidade.Security;
+using FCG.Users.Domain.Repositories;
+using FCG.Users.Domain.Security;
 using FCG.Shared.Domain.Abstractions;
-using FCG.Users.Infrastructure.Identidade.Configurations;
-using FCG.Users.Infrastructure.Identidade.Persistence.Repositories;
-using FCG.Users.Infrastructure.Identidade.Security;
+using FCG.Users.Infrastructure.Configurations;
+using FCG.Users.Infrastructure.Persistence.Repositories;
+using FCG.Users.Infrastructure.Security;
 using FCG.Shared.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
