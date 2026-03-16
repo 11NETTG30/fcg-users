@@ -1,0 +1,10 @@
+.git
+.github
+**/bin
+**/bin\*
+**/obj
+**/obj\*
+**/*.md
+**/*.user
+appsettings.Development.json
+**/.env
