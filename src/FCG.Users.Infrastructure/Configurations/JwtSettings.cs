@@ -5,15 +5,16 @@ namespace FCG.Users.Infrastructure.Configurations;
 
 public sealed class JwtSettings : ITokenSettings
 {
-    [Required]
-    [MinLength(32)]
-    public required string Secret { get; init; }
+    public const string ChaveId = "fcg-key-1";
 
     [Required]
-    public required string Issuer { get; init; }
+    public required string ChavePrivadaRsaBase64 { get; init; }
 
     [Required]
-    public required string Audience { get; init; }
+    public required string Emissor { get; init; }
+
+    [Required]
+    public required string Audiencia { get; init; }
 
     [Range(5, 1440)]
     public short ExpiracaoAccessTokenMinutos { get; init; }

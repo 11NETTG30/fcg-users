@@ -1,6 +1,6 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Text;
+using System.Security.Cryptography;
 using FCG.Users.Application.Security;
 using FCG.Users.Domain.Entities;
 using FCG.Users.Domain.Enums;
@@ -13,28 +13,29 @@ namespace FCG.Users.Infrastructure.Security;
 public sealed class JwtService : IJwtService
 {
     private readonly JwtSettings _jwtSettings;
+    private readonly RsaSecurityKey _chavePrivada;
 
-    public JwtService
-    (
-        IOptions<JwtSettings> jwtSettings
-    )
+    public JwtService(IOptions<JwtSettings> jwtSettings)
     {
         _jwtSettings = jwtSettings.Value;
+
+        var rsa = RSA.Create();
+        rsa.ImportPkcs8PrivateKey(Convert.FromBase64String(_jwtSettings.ChavePrivadaRsaBase64), out _);
+        _chavePrivada = new RsaSecurityKey(rsa) { KeyId = JwtSettings.ChaveId };
     }
 
     public string GerarAccessToken(Usuario usuario)
     {
         List<Claim> claims = ObterClaims(usuario);
 
-        SymmetricSecurityKey securityKey = new(Encoding.ASCII.GetBytes(_jwtSettings.Secret));
-        SigningCredentials credentials = new(securityKey, SecurityAlgorithms.HmacSha256Signature);
+        SigningCredentials credentials = new(_chavePrivada, SecurityAlgorithms.RsaSha256);
 
         SecurityTokenDescriptor securityTokenDescriptor = new()
         {
-            Issuer = _jwtSettings.Issuer,
-            Audience = _jwtSettings.Audience,
+            Issuer = _jwtSettings.Emissor,
+            Audience = _jwtSettings.Audiencia,
             Subject = new ClaimsIdentity(claims),
-            NotBefore =  DateTime.UtcNow,
+            NotBefore = DateTime.UtcNow,
             Expires = DateTime.UtcNow.AddMinutes(_jwtSettings.ExpiracaoAccessTokenMinutos),
             SigningCredentials = credentials
         };
@@ -62,5 +63,4 @@ public sealed class JwtService : IJwtService
 
         return claims;
     }
-
 }

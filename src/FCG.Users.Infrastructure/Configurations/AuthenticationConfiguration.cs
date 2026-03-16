@@ -1,4 +1,4 @@
-using System.Text;
+using System.Security.Cryptography;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,26 +12,28 @@ public static class AuthenticationConfiguration
     {
         public void AddJwtAuthentication(IConfiguration configuration)
         {
-            IConfigurationSection jwtSettings = configuration.GetSection("JwtSettings");
+            IConfigurationSection jwtSettings = configuration.GetSection("Jwt");
 
             services.AddOptions<JwtSettings>()
                 .Bind(jwtSettings)
                 .ValidateDataAnnotations()
                 .ValidateOnStart();
 
-            string? secret = jwtSettings[nameof(JwtSettings.Secret)];
-            SymmetricSecurityKey securityKey = new(Encoding.ASCII.GetBytes(secret!));
+            string? chaveBase64 = jwtSettings[nameof(JwtSettings.ChavePrivadaRsaBase64)];
+            var rsa = RSA.Create();
+            rsa.ImportPkcs8PrivateKey(Convert.FromBase64String(chaveBase64!), out _);
+            RsaSecurityKey chavePublica = new(rsa) { KeyId = JwtSettings.ChaveId };
 
             TokenValidationParameters tokenValidationParameters = new()
             {
                 ValidateIssuer = true,
-                ValidIssuer = jwtSettings[nameof(JwtSettings.Issuer)],
+                ValidIssuer = jwtSettings[nameof(JwtSettings.Emissor)],
 
                 ValidateAudience = true,
-                ValidAudience = jwtSettings[nameof(JwtSettings.Audience)],
+                ValidAudience = jwtSettings[nameof(JwtSettings.Audiencia)],
 
                 ValidateIssuerSigningKey = true,
-                IssuerSigningKey = securityKey,
+                IssuerSigningKey = chavePublica,
 
                 RequireExpirationTime = true,
                 ValidateLifetime = true,

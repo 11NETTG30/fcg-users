@@ -23,6 +23,7 @@ public static class DependencyInjectionInfrastructure
             services.AddSingleton(typeof(IDomainLogger<>), typeof(DomainLogger<>));
             services.AddScoped<IInformacoesUsuarioLogado, InformacoesUsuarioLogado>();
             services.AddSingleton<IJwtService, JwtService>();
+            services.AddSingleton<IJwksService, JwksService>();
             services.AddSingleton<ISenhaHasher, Argon2IdSenhaHasher>();
 
             services.AddSingleton<ITokenSettings>(provider =>
