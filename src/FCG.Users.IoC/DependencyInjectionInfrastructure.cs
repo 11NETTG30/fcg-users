@@ -1,12 +1,15 @@
-using FCG.Users.Application.Security;
 using FCG.Shared.Application;
+using FCG.Shared.Domain.Abstractions;
+using FCG.Shared.Infrastructure;
+using FCG.Users.Application.Abstractions.Messaging;
+using FCG.Users.Application.Security;
 using FCG.Users.Domain.Repositories;
 using FCG.Users.Domain.Security;
-using FCG.Shared.Domain.Abstractions;
 using FCG.Users.Infrastructure.Configurations;
+using FCG.Users.Infrastructure.Messaging;
 using FCG.Users.Infrastructure.Persistence.Repositories;
 using FCG.Users.Infrastructure.Security;
-using FCG.Shared.Infrastructure;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
@@ -16,12 +19,16 @@ public static class DependencyInjectionInfrastructure
 {
     extension(IServiceCollection services)
     {
-        internal void AddInfrastructure()
+        internal void AddInfrastructure(IConfiguration configuration)
         {
             services.AddRepositories();
+            services.ConfigureMessaging(configuration);
+
+
+            services.AddScoped<IInformacoesUsuarioLogado, InformacoesUsuarioLogado>();
+            services.AddScoped<IEventPublisher, EventPublisherMassTransit>();
 
             services.AddSingleton(typeof(IDomainLogger<>), typeof(DomainLogger<>));
-            services.AddScoped<IInformacoesUsuarioLogado, InformacoesUsuarioLogado>();
             services.AddSingleton<IJwtService, JwtService>();
             services.AddSingleton<IJwksService, JwksService>();
             services.AddSingleton<ISenhaHasher, Argon2IdSenhaHasher>();

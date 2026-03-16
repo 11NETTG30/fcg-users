@@ -1,5 +1,5 @@
-using FCG.Users.API.Configurations;
 using FCG.Shared.Infrastructure.Middlewares;
+using FCG.Users.API.Configurations;
 using FCG.Users.Infrastructure.Configurations;
 using FCG.Users.IoC;
 
@@ -13,7 +13,7 @@ builder.Services.ConfigureModelStateInvalid();
 
 builder.Services.AddDatabase(builder.Configuration);
 builder.Services.AddJwtAuthentication(builder.Configuration);
-builder.Services.AddDependencies();
+builder.Services.AddDependencies(builder.Configuration);
 
 WebApplication app = builder.Build();
 

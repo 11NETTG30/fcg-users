@@ -1,6 +1,6 @@
+using FCG.Shared.Domain.Exceptions;
 using FCG.Users.Domain.Entities;
 using FCG.Users.Domain.Repositories;
-using FCG.Shared.Domain.Exceptions;
 
 namespace FCG.Users.Application.UseCases;
 

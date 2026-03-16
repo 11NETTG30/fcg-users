@@ -1,10 +1,12 @@
+using FCG.Shared.Domain.Exceptions;
+using FCG.Users.Application.Abstractions.Messaging;
 using FCG.Users.Application.DTOs;
+using FCG.Users.Application.Events;
 using FCG.Users.Domain.Entities;
 using FCG.Users.Domain.Enums;
 using FCG.Users.Domain.Repositories;
 using FCG.Users.Domain.Security;
 using FCG.Users.Domain.ValueObjects;
-using FCG.Shared.Domain.Exceptions;
 
 namespace FCG.Users.Application.UseCases;
 
@@ -12,13 +14,15 @@ public sealed class CriarUsuarioUseCase
 {
     private readonly IUsuarioRepository _usuarioRepository;
     private readonly ISenhaHasher _senhaHasher;
-
+    private readonly IEventPublisher _transit;
     public CriarUsuarioUseCase
     (
         IUsuarioRepository usuarioRepository,
-        ISenhaHasher senhaHasher
+        ISenhaHasher senhaHasher,
+        IEventPublisher transit
     )
     {
+        _transit = transit;
         _usuarioRepository = usuarioRepository;
         _senhaHasher = senhaHasher;
     }
@@ -40,6 +44,12 @@ public sealed class CriarUsuarioUseCase
         await _usuarioRepository.Adicionar(usuario);
         await _usuarioRepository.UnitOfWork.Commit();
 
+        await _transit.PublishAsync(
+            new UserCreatedEvent(
+                UserId: usuario.Id,
+                Email: usuario.Email.Valor
+            )
+        );
         return usuario.Id;
     }
 }
