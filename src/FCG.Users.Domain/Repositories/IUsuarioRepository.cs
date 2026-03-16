@@ -1,5 +1,5 @@
-using FCG.Users.Domain.Entities;
 using FCG.Shared.Domain.Abstractions;
+using FCG.Users.Domain.Entities;
 
 namespace FCG.Users.Domain.Repositories;
 
