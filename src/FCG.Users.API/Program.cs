@@ -19,7 +19,7 @@ WebApplication app = builder.Build();
 
 await app.AplicarMigracoesAsync();
 
-if (app.Environment.IsDevelopment())
+if (app.Configuration.GetValue<bool>("Documentacao:Habilitada"))
 {
     app.UseDocumentation();
 }
