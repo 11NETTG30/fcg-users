@@ -1,7 +1,7 @@
 using FCG.Shared.Domain.Exceptions;
 using FCG.Users.Application.Abstractions.Messaging;
 using FCG.Users.Application.DTOs;
-using FCG.Users.Application.Events;
+using FCG.Shared.Contracts.Events;
 using FCG.Users.Domain.Entities;
 using FCG.Users.Domain.Enums;
 using FCG.Users.Domain.Repositories;

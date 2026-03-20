@@ -8,6 +8,7 @@
         <ProjectReference Include="..\FCG.Users.Domain\FCG.Users.Domain.csproj" />
     </ItemGroup>
     <ItemGroup>
+        <PackageReference Include="FCG.Shared.Contracts" Version="1.0.0" />
         <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.1" />
         <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.0" />
     </ItemGroup>
