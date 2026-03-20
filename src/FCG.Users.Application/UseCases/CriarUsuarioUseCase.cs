@@ -46,7 +46,7 @@ public sealed class CriarUsuarioUseCase
 
         await _transit.PublishAsync(
             new UserCreatedEvent(
-                UserId: usuario.Id,
+                UsuarioId: usuario.Id,
                 Email: usuario.Email.Valor,
                 Nome: usuario.Nome
             )
