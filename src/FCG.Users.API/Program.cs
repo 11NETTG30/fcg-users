@@ -17,6 +17,8 @@ builder.Services.AddDependencies(builder.Configuration);
 
 WebApplication app = builder.Build();
 
+await app.AplicarMigracoesAsync();
+
 if (app.Environment.IsDevelopment())
 {
     app.UseDocumentation();
