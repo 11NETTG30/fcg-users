@@ -15,6 +15,7 @@ builder.Services.ConfigureModelStateInvalid();
 
 builder.Services.AddDatabase(builder.Configuration);
 builder.Services.AddJwtAuthentication(builder.Configuration);
+builder.Services.AddHealthCheckConfiguration(builder.Configuration);
 builder.Services.AddDependencies(builder.Configuration);
 
 WebApplication app = builder.Build();
@@ -37,5 +38,6 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapHealthCheckEndpoints();
 
 app.Run();
