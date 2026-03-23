@@ -128,6 +128,16 @@ Acesse a documentação interativa:
 
 ---
 
+## ⚙️ CI — GitHub Actions
+
+| Workflow | Gatilho | Descrição |
+|---|---|---|
+| `docker-publish.yml` | `workflow_dispatch` | Build da imagem Docker e push para o GitHub Container Registry (`ghcr.io/11nettg30/fcg-users-api:latest`) |
+
+Para publicar, acesse **Actions → Publicar Imagem Docker → Run workflow**.
+
+---
+
 ## 🧪 Testes
 
 ```bash
