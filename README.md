@@ -2,7 +2,7 @@
 
 Microsserviço de usuários do **FIAP Cloud Games (FCG)**.
 
-Responsável por cadastro, autenticação JWT, autorização e exposição do endpoint JWKS. É a única autoridade de assinatura de tokens JWT no ecossistema FCG; os demais microsserviços apenas validam via `/.well-known/jwks.json`.
+Responsável por cadastro, autenticação JWT, autorização e exposição do endpoint JWKS. Este serviço atua como a **Autoridade Emissora (Issuer)** de tokens JWT RS256 no ecossistema FCG.
 
 ---
 
@@ -11,6 +11,27 @@ Responsável por cadastro, autenticação JWT, autorização e exposição do en
 Parte do **Tech Challenge da Pós-Graduação em Arquitetura de Sistemas .NET da FIAP**, **Turma 11NETT – Grupo 30**.
 
 O FCG é uma plataforma de games educacionais. Este microsserviço foi extraído e refatorado a partir do monolito da Fase 1, adotando Clean Architecture, DDD e comunicação via eventos com RabbitMQ.
+
+---
+
+## 🔒 Arquitetura de Segurança (Kong + API Cega)
+
+Adotamos uma arquitetura onde o **Kong Gateway** atua como ponto central de segurança, permitindo que os microsserviços operem de forma desacoplada e eficiente:
+
+1. **Validação na Borda (Kong):** O Kong Gateway valida a assinatura criptográfica e a expiração (`exp`) do token antes da requisição chegar aos microsserviços. Para isso, consome o endpoint `/.well-known/jwks.json` exposto por este serviço via JWKS discovery.
+
+2. **Microsserviços (APIs Cegas):** Os demais microsserviços (Catalog, Payments, etc.) operam de forma "cega". Eles não validam assinaturas criptográficas localmente — confiam no Gateway e utilizam o padrão de **Identity Propagation** para ler as claims (`roles`, `aud`) contidas no token e executar a autorização final.
+
+3. **JWKS:** A chave pública é exposta via `/.well-known/jwks.json` exclusivamente para o Kong utilizá-la como fonte de verdade para a validação das assinaturas.
+
+### 💡 Por que este modelo?
+
+| Benefício | Descrição |
+|---|---|
+| **Performance** | Reduz o consumo de CPU ao evitar validações criptográficas repetidas em cada microsserviço |
+| **Desacoplamento** | As APIs não dependem do ciclo de vida das chaves de segurança |
+| **Segurança Centralizada** | A integridade do token reside no Gateway, componente especializado |
+| **Facilidade** | Novos serviços focam apenas na lógica de negócio e leitura de claims |
 
 ---
 
@@ -60,7 +81,9 @@ tests/
 Este serviço utiliza **criptografia assimétrica RSA (RS256)**:
 
 - A **chave privada** fica exclusivamente neste serviço (em `appsettings.Development.json`, gitignored) e é usada para **assinar** os tokens.
-- A **chave pública** é exposta em `/.well-known/jwks.json` e usada pelos demais microsserviços para **validar** tokens sem precisar se comunicar com este serviço.
+- A **chave pública** é exposta em `/.well-known/jwks.json` e consumida pelo Kong para **validar** tokens sem precisar se comunicar diretamente com este serviço a cada requisição.
+
+> ⚠️ Os demais microsserviços (Catalog, Payments, etc.) **não processam a chave privada** e **não realizam validação criptográfica**, pois recebem o token pré-validado pelo Kong.
 
 ### Endpoints JWKS / OIDC
 
@@ -89,7 +112,7 @@ Crie o banco `fcg_users` no PostgreSQL e ajuste a connection string em `appsetti
 }
 ```
 
-### 2. Configurar JWT RSA
+### 2. Configurar JWT RSA (apenas na UsersAPI)
 
 Gere um par de chaves RSA 2048 (PKCS#8, DER) em Base64 (Linux / macOS / WSL / Git Bash):
 
@@ -104,6 +127,8 @@ Adicione o valor gerado em `appsettings.Development.json`:
   "ChavePrivadaRsaBase64": "BASE64_DA_CHAVE_PRIVADA_RSA"
 }
 ```
+
+> **Nota:** Os demais microsserviços (Catalog, Payments, etc.) não precisam desta configuração. Eles não processam a chave privada e não realizam validação criptográfica, pois recebem o token pré-validado pelo Kong.
 
 ### 3. Executar a API
 
