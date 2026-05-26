@@ -18,43 +18,6 @@ public static class AuthenticationConfiguration
                 .Bind(jwtSettings)
                 .ValidateDataAnnotations()
                 .ValidateOnStart();
-
-            string? chaveBase64 = jwtSettings[nameof(JwtSettings.ChavePrivadaRsaBase64)];
-            var rsa = RSA.Create();
-            rsa.ImportPkcs8PrivateKey(Convert.FromBase64String(chaveBase64!), out _);
-            RsaSecurityKey chavePublica = new(rsa) { KeyId = JwtSettings.ChaveId };
-
-            TokenValidationParameters tokenValidationParameters = new()
-            {
-                ValidateIssuer = true,
-                ValidIssuer = jwtSettings[nameof(JwtSettings.Emissor)],
-
-                ValidateAudience = true,
-                ValidAudience = jwtSettings[nameof(JwtSettings.Audiencia)],
-
-                ValidateIssuerSigningKey = true,
-                IssuerSigningKey = chavePublica,
-
-                RequireExpirationTime = true,
-                ValidateLifetime = true,
-
-                ClockSkew = TimeSpan.Zero
-            };
-
-            services
-                .AddAuthentication(options =>
-                {
-                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                })
-                .AddJwtBearer(options =>
-                {
-                    options.RequireHttpsMetadata = false;
-                    options.SaveToken = true;
-                    options.TokenValidationParameters = tokenValidationParameters;
-                });
-
-            services.AddAuthorization();
         }
     }
 }

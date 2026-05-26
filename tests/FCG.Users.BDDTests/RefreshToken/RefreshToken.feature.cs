@@ -27,8 +27,8 @@ namespace FCG.Users.BDDTests.RefreshToken
         
         private static string[] featureTags = ((string[])(null));
         
-        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("pt-BR"), "RefreshToken", "Renovação de token", "  Para manter a sessão do usuário ativa com segurança\n  Como sistema\n  Quero reno" +
-                "var o access token usando um refresh token válido", global::Reqnroll.ProgrammingLanguage.CSharp, featureTags, InitializeCucumberMessages());
+        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("pt-BR"), "RefreshToken", "Renovação de token", "  Para manter a sessão do usuário ativa com segurança\r\n  Como sistema\r\n  Quero re" +
+                "novar o access token usando um refresh token válido", global::Reqnroll.ProgrammingLanguage.CSharp, featureTags, InitializeCucumberMessages());
         
 #line 1 "RefreshToken.feature"
 #line hidden

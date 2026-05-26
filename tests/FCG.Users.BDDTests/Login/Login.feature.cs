@@ -27,8 +27,8 @@ namespace FCG.Users.BDDTests.Login
         
         private static string[] featureTags = ((string[])(null));
         
-        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("pt-BR"), "Login", "Login de usuário", "  Para permitir autenticação no sistema\n  Como usuário\n  Quero realizar login com" +
-                " e-mail e senha válidos", global::Reqnroll.ProgrammingLanguage.CSharp, featureTags, InitializeCucumberMessages());
+        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("pt-BR"), "Login", "Login de usuário", "  Para permitir autenticação no sistema\r\n  Como usuário\r\n  Quero realizar login c" +
+                "om e-mail e senha válidos", global::Reqnroll.ProgrammingLanguage.CSharp, featureTags, InitializeCucumberMessages());
         
 #line 1 "Login.feature"
 #line hidden

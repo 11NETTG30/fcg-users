@@ -27,8 +27,8 @@ namespace FCG.Users.BDDTests.Logout
         
         private static string[] featureTags = ((string[])(null));
         
-        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("pt-BR"), "Logout", "Logout", "  Para encerrar a sessão do usuário\n  Como sistema\n  Quero invalidar o refresh to" +
-                "ken no logout", global::Reqnroll.ProgrammingLanguage.CSharp, featureTags, InitializeCucumberMessages());
+        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("pt-BR"), "Logout", "Logout", "  Para encerrar a sessão do usuário\r\n  Como sistema\r\n  Quero invalidar o refresh " +
+                "token no logout", global::Reqnroll.ProgrammingLanguage.CSharp, featureTags, InitializeCucumberMessages());
         
 #line 1 "Logout.feature"
 #line hidden

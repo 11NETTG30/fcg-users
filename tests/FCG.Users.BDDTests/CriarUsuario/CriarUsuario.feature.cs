@@ -27,8 +27,8 @@ namespace FCG.Users.BDDTests.CriarUsuario
         
         private static string[] featureTags = ((string[])(null));
         
-        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("pt-BR"), "CriarUsuario", "Criar usuário", "  Para permitir o cadastro de novos usuários\n  Como sistema\n  Quero criar um usuá" +
-                "rio quando os dados forem válidos", global::Reqnroll.ProgrammingLanguage.CSharp, featureTags, InitializeCucumberMessages());
+        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("pt-BR"), "CriarUsuario", "Criar usuário", "  Para permitir o cadastro de novos usuários\r\n  Como sistema\r\n  Quero criar um us" +
+                "uário quando os dados forem válidos", global::Reqnroll.ProgrammingLanguage.CSharp, featureTags, InitializeCucumberMessages());
         
 #line 1 "CriarUsuario.feature"
 #line hidden
