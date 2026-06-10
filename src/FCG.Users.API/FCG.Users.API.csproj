@@ -6,7 +6,7 @@
     </PropertyGroup>
     <ItemGroup>
 <PackageReference Include="AspNetCore.HealthChecks.NpgSql" Version="9.0.0" />
-<PackageReference Include="FCG.Shared.Infrastructure" Version="1.4.0" />
+<PackageReference Include="FCG.Shared.Infrastructure" Version="1.5.0" />
 <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.1" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.2">
             <PrivateAssets>all</PrivateAssets>
