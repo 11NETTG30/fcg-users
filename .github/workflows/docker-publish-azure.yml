@@ -1,17 +1,42 @@
-name: Publicar Imagem Docker na Azure
+name: Publicar e fazer Deploy na Azure
 
 on:
+  push:
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
-  build-and-push:
+  build-test-push-deploy:
     runs-on: ubuntu-latest
+
     permissions:
       contents: read
+
+    env:
+      IMAGE_NAME: acrfcg.azurecr.io/fcg-users-api
+      AKS_RESOURCE_GROUP: FCG-RG
+      AKS_CLUSTER_NAME: aksfcg
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Configurar .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Restore
+        run: dotnet restore
+        env:
+          NUGET_AUTH_TOKEN: ${{ secrets.NUGET_AUTH_TOKEN }}
+
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+
+      - name: Testes
+        run: dotnet test --configuration Release --no-build
 
       - name: Login no ACR
         uses: docker/login-action@v3
@@ -20,13 +45,38 @@ jobs:
           username: ${{ secrets.AZURE_CLIENT_ID }}
           password: ${{ secrets.AZURE_CLIENT_SECRET }}
 
-      - name: Build e push da imagem
+      - name: Build e Push da imagem
         uses: docker/build-push-action@v5
         with:
           context: .
           push: true
           tags: |
-            acrfcg.azurecr.io/fcg-users-api:latest
-            acrfcg.azurecr.io/fcg-users-api:${{ github.sha }}
+            ${{ env.IMAGE_NAME }}:latest
+            ${{ env.IMAGE_NAME }}:${{ github.sha }}
           secrets: |
             nuget_token=${{ secrets.NUGET_AUTH_TOKEN }}
+
+      - name: Login na Azure
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Instalar kubectl
+        uses: azure/setup-kubectl@v4
+
+      - name: Obter credenciais do AKS
+        run: |
+          az aks get-credentials \
+            --resource-group $AKS_RESOURCE_GROUP \
+            --name $AKS_CLUSTER_NAME \
+            --overwrite-existing
+
+      - name: Rolling Update
+        run: |
+          kubectl set image deployment/users-api \
+            users-api=${IMAGE_NAME}:${{ github.sha }} \
+            -n fcg
+
+      - name: Aguardar Rollout
+        run: |
+          kubectl rollout status deployment/users-api -n fcg
